@@ -1504,6 +1504,58 @@ def plus_or_dot(pieces):
     return "+"
 
 
+# def render_pep440(pieces):
+#     """Build up version string, with post-release "local version identifier".
+
+#     Our goal: TAG[+DISTANCE.gHEX[.dirty]] . Note that if you
+#     get a tagged build and then dirty it, you'll get TAG+0.gHEX.dirty
+
+#     Exceptions:
+#     1: no tags. git_describe was just HEX. 0+untagged.DISTANCE.gHEX[.dirty]
+#     """
+#     if pieces["closest-tag"]:
+#         rendered = pieces["closest-tag"]
+#         if pieces["distance"] or pieces["dirty"]:
+#             rendered += plus_or_dot(pieces)
+#             rendered += "%d.g%s" % (pieces["distance"], pieces["short"])
+#             if pieces["dirty"]:
+#                 rendered += ".dirty"
+#     else:
+#         # exception #1
+#         rendered = "0+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
+#         if pieces["dirty"]:
+#             rendered += ".dirty"
+#     return rendered
+
+
+# def render_pep440_branch(pieces):
+#     """TAG[[.dev0]+DISTANCE.gHEX[.dirty]] .
+
+#     The ".dev0" means not master branch. Note that .dev0 sorts backwards
+#     (a feature branch will appear "older" than the master branch).
+
+#     Exceptions:
+#     1: no tags. 0[.dev0]+untagged.DISTANCE.gHEX[.dirty]
+#     """
+#     if pieces["closest-tag"]:
+#         rendered = pieces["closest-tag"]
+#         if pieces["distance"] or pieces["dirty"]:
+#             if pieces["branch"] != "master":
+#                 rendered += ".dev0"
+#             rendered += plus_or_dot(pieces)
+#             rendered += "%d.g%s" % (pieces["distance"], pieces["short"])
+#             if pieces["dirty"]:
+#                 rendered += ".dirty"
+#     else:
+#         # exception #1
+#         rendered = "0"
+#         if pieces["branch"] != "master":
+#             rendered += ".dev0"
+#         rendered += "+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
+#         if pieces["dirty"]:
+#             rendered += ".dirty"
+#     return rendered
+
 def render_pep440(pieces):
     """Build up version string, with post-release "local version identifier".
 
@@ -1522,7 +1574,7 @@ def render_pep440(pieces):
                 rendered += ".dirty"
     else:
         # exception #1
-        rendered = "0+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
+        rendered = "0.0.0+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
         if pieces["dirty"]:
             rendered += ".dirty"
     return rendered
@@ -1548,14 +1600,13 @@ def render_pep440_branch(pieces):
                 rendered += ".dirty"
     else:
         # exception #1
-        rendered = "0"
+        rendered = "0.0.0"
         if pieces["branch"] != "master":
             rendered += ".dev0"
         rendered += "+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
         if pieces["dirty"]:
             rendered += ".dirty"
     return rendered
-
 
 def pep440_split_post(ver):
     """Split pep440 version string at the post-release segment.
