@@ -1574,7 +1574,7 @@ def render_pep440(pieces):
                 rendered += ".dirty"
     else:
         # exception #1
-        rendered = "0.0.0+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
+        rendered = "8.16.0+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
         if pieces["dirty"]:
             rendered += ".dirty"
     return rendered
@@ -1600,7 +1600,7 @@ def render_pep440_branch(pieces):
                 rendered += ".dirty"
     else:
         # exception #1
-        rendered = "0.0.0"
+        rendered = "8.16.0"
         if pieces["branch"] != "master":
             rendered += ".dev0"
         rendered += "+untagged.%d.g%s" % (pieces["distance"], pieces["short"])
