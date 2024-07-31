@@ -1879,7 +1879,7 @@ def get_versions(verbose=False):
         print("unable to compute version")
 
     return {
-        "version": "0+unknown",
+        "version": "8.16.0+unknown",
         "full-revisionid": None,
         "dirty": None,
         "error": "unable to compute version",
