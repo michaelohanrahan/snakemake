@@ -616,12 +616,12 @@ class Persistence(PersistenceExecutorInterface):
             self._fetch_max_len(subject) if os.name == "posix" else 255
         )  # maximum NTFS and FAT32 filename length
         if max_len == 0:
-            max_len = 150
+            max_len = 255
 
         b64id = self._b64id(id)
         
-        #Hamp Hotpatch a72d7fb
-        b64id = md5(b64id.encode()).hexdigest()
+        #Hamp Hotpatch 
+        b64id = md5(b64id.encode()).hexdigest(30)
         
         # split into chunks of proper length
         b64id = [b64id[i : i + max_len - 1] for i in range(0, len(b64id), max_len - 1)]
