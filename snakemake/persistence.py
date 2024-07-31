@@ -616,7 +616,7 @@ class Persistence(PersistenceExecutorInterface):
             self._fetch_max_len(subject) if os.name == "posix" else 255
         )  # maximum NTFS and FAT32 filename length
         if max_len == 0:
-            max_len = 255
+            max_len = 150
 
         b64id = self._b64id(id)
         
